@@ -1,7 +1,7 @@
 <?php
 
-$db = mysql_connect("localhost", "", "") or die ("No connect to database-home");
-mysql_select_db("") or die("Could not select database");
+$db = mysql_connect("localhost", "torpedo02_round", "52fe049a") or die ("No connect to database-home");
+mysql_select_db("torpedo02_round") or die("Could not select database");
 $query='SET NAMES utf8';
 $res = mysql_query($query);
 

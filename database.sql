@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Час створення: Вер 30 2017 р., 11:11
+-- Час створення: Вер 30 2017 р., 11:36
 -- Версія сервера: 5.5.46-MariaDB-log
 -- Версія PHP: 5.3.28
 
@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS `round` (
   `type` int(2) NOT NULL,
   `weight` int(255) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `weight_exp` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
