@@ -136,11 +136,12 @@ mysql_query($query_edit) or die (mysql_error());
 ?>
   </div>
   <div id="tabs-3">
-    <div id="piechart" style="width: 500px; height: 500px;"></div>
-
+    <div id="piechart" style="width: 500px; height: 200px;"></div>
+    <div id="workWithSocium" style="width: 500px; height: 500px;"></div>
 
 </div>
 <script type="text/javascript">
+
 $(document).ready(function() {
 google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
@@ -162,6 +163,39 @@ google.charts.load('current', {'packages':['corechart']});
 
         chart.draw(data, options);
       }
+
+// function draw colums
+
+    google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawworkWithSocium);
+
+      function drawworkWithSocium() {
+        var data = google.visualization.arrayToDataTable([
+          
+          ['Element', 'Density', { role: 'style' }],
+          <?php 
+          $PersonalObject = mysql_query ("select objectTitle, objectWeight FROM objects");                    
+          // get titles
+          $chartTitle = array();
+          $chartNumbers = array();
+            while ($myrow_PersonalObject = mysql_fetch_array ($PersonalObject)) {
+                echo "['" . $myrow_PersonalObject['objectTitle'] . "', ";
+                echo $myrow_PersonalObject['objectWeight'] . ", '#b87333']," ;
+            }
+    
+          ?>]);
+
+        var options = {
+          chart: {
+            title: 'person combination'
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('workWithSocium'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+
 });
 </script>
 </body>
