@@ -11,7 +11,7 @@
 
 mysql_query("
     UPDATE objects 
-    SET objectWeight = objectWeight + 1 WHERE objectWeight > 0
+    SET objectWeight = objectWeight - 1 WHERE objectWeight > 0
 
 ");
 

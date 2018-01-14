@@ -42,13 +42,21 @@
     (type, weight, title, description    ) 
     
     VALUES (1, '".$weight."', '".$title."', '".$description."' )
-    
-    
-    
+
         ");
 
 
 mysql_query($query_edit) or die (mysql_error());
+
+// linked with persons
+if($_POST['persons']){
+    foreach ($_POST['persons'] as $value) {
+     mysql_query("
+    UPDATE objects 
+    SET objectWeight = objectWeight + '".$weight * 4 ."' WHERE ID = '".$value."'
+    ");
+    }
+}
 
     }
     
@@ -83,6 +91,17 @@ mysql_query($query_edit) or die (mysql_error());
             <input type="hidden"  name="type" value="1"/>
             <input type="text" placeholder="Години" size="10"  name="weight" /><br />
             <input type="text" placeholder="Проект" size="10"  name="title" /><br />
+            <?php
+            // checkbox
+            $checkboxObject = mysql_query ("select objectTitle, ID FROM objects");                    
+          // get titles
+         
+            while ($myrow_checkboxObject = mysql_fetch_array ($checkboxObject)) {
+                echo '<input type="checkbox" name="persons[]" value="'. $myrow_checkboxObject['ID'].'">'. $myrow_checkboxObject['objectTitle'] . ' ' ;
+            }
+
+            ?>
+            
             <textarea cols="80" rows="10" wrap="virtual" name="description" maxlength="100"></textarea><br />
             <input type="submit"  name="submit" value="Зарахувати" />
             </form><?php
@@ -172,7 +191,7 @@ google.charts.load('current', {'packages':['corechart']});
       function drawworkWithSocium() {
         var data = google.visualization.arrayToDataTable([
           
-          ['Element', 'Density', { role: 'style' }],
+          ['Element', 'Density'],
           <?php 
           $PersonalObject = mysql_query ("select objectTitle, objectWeight FROM objects");                    
           // get titles
@@ -180,7 +199,7 @@ google.charts.load('current', {'packages':['corechart']});
           $chartNumbers = array();
             while ($myrow_PersonalObject = mysql_fetch_array ($PersonalObject)) {
                 echo "['" . $myrow_PersonalObject['objectTitle'] . "', ";
-                echo $myrow_PersonalObject['objectWeight'] . ", '#b87333']," ;
+                echo $myrow_PersonalObject['objectWeight'] . "]," ;
             }
     
           ?>]);

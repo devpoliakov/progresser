@@ -8,7 +8,7 @@
     vertical-align: top;
 }
 
-input, textarea, submit, button {
+input[type=text], textarea, submit, button {
 	display: block;
     width: 94%;
     padding: 6px 2%;
